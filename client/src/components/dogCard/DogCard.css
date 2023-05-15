@@ -1,0 +1,6 @@
+.card-image {
+    width: 200px;   /* Define el ancho de la imagen */
+    height: 200px;  /* Define la altura de la imagen */
+    object-fit: cover; /* Asegura que la imagen cubra todo el espacio definido, recortándola si es necesario */
+  }
+  

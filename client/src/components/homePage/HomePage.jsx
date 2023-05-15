@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllDogs, searchDogsByName } from '../../redux/actions';
-import DogCard from '../dogCard/DogCard';
+import DogList from '../dogCard/DogList';
 import SearchBar from '../searchBar/SearchBar';
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const { dogs } = useSelector((state) => state);
+  
 
   useEffect(() => {
     dispatch(getAllDogs());
@@ -15,14 +16,15 @@ const HomePage = () => {
   const handleSearch = (name) => {
     dispatch(searchDogsByName(name));
   };
+  console.log(dogs);
 
   return (
+    
     <div>
       <SearchBar handleSearch={handleSearch} />
       <div>
-        {dogs.map((dog) => (
-          <DogCard key={dog.id} dog={dog} />
-        ))}
+      
+      <DogList dogs={dogs} />
       </div>
     </div>
   );
