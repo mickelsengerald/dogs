@@ -26,16 +26,36 @@ async function getDogsByName(req, res) {
         'x-api-key': API_KEY
       }
     });
-    const externalDogs = response.data.map((dog) => {
+    console.log(`Respuesta de la API: ${JSON.stringify(response.data, null, 2)}`);
+
+    const externalDogs = response.data.map(async (dog) => {
+      // Obtener la imagen correspondiente utilizando el id del perro
+      const imageResponse = await axios.get(`https://api.thedogapi.com/v1/images/search?breed_id=${dog.id}`, {
+        headers: {
+          'x-api-key': API_KEY
+        }
+      });
+      
+      const image = imageResponse.data[0]?.url;
+      
       return {
         id: dog.id,
         name: dog.name,
-        temperaments: dog.temperament ? dog.temperament.split(", ") : [],
+        temperament: dog.temperament ? dog.temperament.split(", ") : [],
+        image: image ? { url: image } : { url: null },
+        weight: dog.weight,
+        height: dog.height,
+        life_span: dog.life_span
         // Agregar el resto de las propiedades que necesites
       };
     });
 
-    const allDogs = localDogs.concat(externalDogs);
+    // Esperar a que se completen todas las promesas
+    const externalDogsData = await Promise.all(externalDogs);
+    
+    const allDogs = localDogs.concat(externalDogsData);
+    console.log(`locales: ${JSON.stringify(localDogs, null, 2)}`)
+    console.log(`externos: ${JSON.stringify(externalDogsData, null, 2)}`)
 
     if (allDogs.length === 0) {
       return res.status(404).send('No dogs found with that name');
@@ -51,6 +71,7 @@ async function getDogsByName(req, res) {
 module.exports = {
   getDogsByName,
 };
+
 
 
 

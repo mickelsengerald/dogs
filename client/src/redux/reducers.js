@@ -5,6 +5,7 @@ import {
   SEARCH_DOGS_BY_NAME,
   CREATE_DOG,
   GET_TEMPERAMENTS,
+  RESET_DOG_DETAIL
 } from './actions';
 
 // Estado inicial
@@ -31,10 +32,14 @@ const dogDetailReducer = (state = initialState.dogDetail, action) => {
   switch (action.type) {
     case GET_DOG_BY_ID:
       return action.payload;
+    case RESET_DOG_DETAIL:
+      return initialState.dogDetail;
     default:
       return state;
   }
 };
+
+
 
 const searchedDogsReducer = (state = initialState.searchedDogs, action) => {
   switch (action.type) {
@@ -53,6 +58,8 @@ const temperamentsReducer = (state = initialState.temperaments, action) => {
       return state;
   }
 };
+
+
 
 // Combinar todas las funciones reductoras
 const rootReducer = combineReducers({
