@@ -8,11 +8,33 @@ async function getDogs(req, res, next) {
     const apiDogs = apiResponse.data;
 
     // Hacer la consulta a la base de datos para obtener todas las razas de perro guardadas
-    const dbDogs = await Dog.findAll({
-      include: Temperament,
-      attributes: {
-        exclude: ['createdAt', 'updatedAt']
+    const dbDogsData = await Dog.findAll({
+      include: {
+        model: Temperament,
+        attributes: ['name'], // Seleccionamos solo el nombre del temperamento
+        through: { attributes: [] }, // Excluimos los atributos de la tabla intermedia
       }
+    });
+
+    // Convertir los datos de la base de datos a un formato manejable
+    const dbDogs = dbDogsData.map(dog => {
+      const { id, name, min_height, max_height, min_weight, max_weight, life_span, image, temperaments } = dog.get();
+
+      // Transformar la lista de temperamentos en una lista de strings
+      const temperamentNames = temperaments.map(temp => temp.name);
+
+      // Retorna la estructura correcta del objeto
+      return {
+        id,
+        name,
+        min_height,
+        max_height,
+        min_weight,
+        max_weight,
+        life_span,
+        image,
+        temperament: temperamentNames,
+      };
     });
 
     // Combinar las razas de perro de la API y de la base de datos

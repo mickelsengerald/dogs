@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 const Paginator = ({ totalItems, itemsPerPage, onPageChange }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +15,8 @@ const Paginator = ({ totalItems, itemsPerPage, onPageChange }) => {
 
   return (
     <div>
+      <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>First</button>
+      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
       {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
         <button
           key={pageNumber}
@@ -25,8 +26,12 @@ const Paginator = ({ totalItems, itemsPerPage, onPageChange }) => {
           {pageNumber}
         </button>
       ))}
+      <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
+      <button onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>Last</button>
     </div>
   );
 };
 
 export default Paginator;
+
+

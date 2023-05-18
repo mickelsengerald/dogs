@@ -1,10 +1,9 @@
 import React from 'react';
-import './DogCard.css'; // Asegúrate de tener este archivo en la misma carpeta
+import './DogCard.css'; 
 import { Link } from 'react-router-dom';
 
 const DogCard = ({ dog }) => {
-  const { name, image, temperament, weight, height, life_span } = dog;
-  
+  let { name, image, temperament, weight, height, life_span, min_height, max_height, min_weight, max_weight } = dog;
 
   let tempArray;
 if (Array.isArray(temperament)) {
@@ -16,9 +15,31 @@ if (Array.isArray(temperament)) {
 }
 
 
+  // Verificar si la altura y el peso son objetos, si no, tratarlos como cadenas
+  let heightStr, weightStr;
+  if (typeof height === 'object' && height !== null) {
+    heightStr = `${height.imperial} in (${height.metric} cm)`;
+  } else {
+    heightStr = `${max_height} - ${min_height} cm` ;
+  }
+
+  if (typeof weight === 'object' && weight !== null) {
+    weightStr = `${weight.imperial} lbs (${weight.metric} kg)`;
+  } else {
+    weightStr = `${max_weight} - ${min_weight} kg`;
+  }
+
+  // Verificar si la imagen es un objeto, si no, tratarla como una cadena
+  let imgSrc;
+  if (typeof image === 'object' && image !== null) {
+    imgSrc = image.url;
+  } else {
+    imgSrc = image;
+  }
+
   return (
     <div className="card">
-      <img src={image.url} alt={name} className="card-image" /> {/* Aquí es donde se hizo el cambio */}
+      <img src={imgSrc} alt={name} className="card-image" />
       <div className="card-content">
         <Link to={`/detail/${dog.id}`}>
           <h2 className="card-title">{name}</h2>
@@ -27,10 +48,10 @@ if (Array.isArray(temperament)) {
           <strong>Temperamentos:</strong> {tempArray.join(', ')}
         </p>
         <p className="card-text">
-          <strong>Peso:</strong> {weight.imperial} lbs ({weight.metric} kg)
-          <br></br>
-          <strong>Altura:</strong> {height.imperial} in ({height.metric} cm)
-          <br></br>
+          <strong>Peso:</strong> {weightStr}
+          <br />
+          <strong>Altura:</strong> {heightStr}
+          <br />
           <strong>Vida promedio:</strong> {life_span}
         </p>
       </div>
@@ -39,5 +60,6 @@ if (Array.isArray(temperament)) {
 };
 
 export default DogCard;
+
 
 

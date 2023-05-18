@@ -49,7 +49,9 @@ export const searchDogsByName = (name) => async (dispatch) => {
 
 export const createDog = (newDog) => async (dispatch) => {
   try {
+    console.log(`new dog ${JSON.stringify(newDog, null, 2)}`)
     const res = await axios.post('http://localhost:3001/dogs', newDog);
+    console.log(`respuesta de data ${res.data}`)
     dispatch({
       type: CREATE_DOG,
       payload: res.data,
@@ -62,6 +64,7 @@ export const createDog = (newDog) => async (dispatch) => {
 export const getTemperaments = () => async (dispatch) => {
   try {
     const res = await axios.get('http://localhost:3001/temperaments');
+    console.log('Temperaments:', res.data);
     dispatch({
       type: GET_TEMPERAMENTS,
       payload: res.data,

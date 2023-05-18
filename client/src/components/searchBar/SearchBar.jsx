@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 
 const SearchBar = ({ handleSearch }) => {
@@ -25,16 +24,17 @@ const SearchBar = ({ handleSearch }) => {
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"
-          placeholder="Buscar por nombre"
+          placeholder="Search by name"
           value={searchQuery}
           onChange={handleInputChange}
         />
-        <button type="submit">Buscar</button>
+        <button type="submit" disabled={!searchQuery}>Search</button>
       </form>
-      <button onClick={handleSearchAllDogs}>Todos</button>
+      <button onClick={handleSearchAllDogs}>All Dogs</button>
     </div>
   );
 };
 
 export default SearchBar;
+
 

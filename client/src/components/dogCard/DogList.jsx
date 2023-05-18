@@ -15,23 +15,47 @@ const DogList = ({ dogs }) => {
       case 'alph_desc':
         orderedDogsCopy.sort((a, b) => b.name.localeCompare(a.name));
         break;
-      case 'weight_asc':
-        orderedDogsCopy.sort((a, b) => parseFloat(a.weight.metric) - parseFloat(b.weight.metric));
-        break;
-      case 'weight_desc':
-        orderedDogsCopy.sort((a, b) => parseFloat(b.weight.metric) - parseFloat(a.weight.metric));
-        break;
-      case 'height_asc':
-        orderedDogsCopy.sort((a, b) => parseFloat(a.height.metric) - parseFloat(b.height.metric));
-        break;
-      case 'height_desc':
-        orderedDogsCopy.sort((a, b) => parseFloat(b.height.metric) - parseFloat(a.height.metric));
-        break;
+        case 'weight_asc':
+          orderedDogsCopy.sort((a, b) => {
+            const weightA = a.weight?.metric || (a.min_weight + a.max_weight) / 2 || 0;
+            const weightB = b.weight?.metric || (b.min_weight + b.max_weight) / 2 || 0;
+            return parseFloat(weightA) - parseFloat(weightB);
+          });
+          break;
+        case 'weight_desc':
+          orderedDogsCopy.sort((a, b) => {
+            const weightA = a.weight?.metric || (a.min_weight + a.max_weight) / 2 || 0;
+            const weightB = b.weight?.metric || (b.min_weight + b.max_weight) / 2 || 0;
+            return parseFloat(weightB) - parseFloat(weightA);
+          });
+          break;
+        case 'height_asc':
+          orderedDogsCopy.sort((a, b) => {
+            const heightA = a.height?.metric || (a.min_height + a.max_height) / 2 || 0;
+            const heightB = b.height?.metric || (b.min_height + b.max_height) / 2 || 0;
+            return parseFloat(heightA) - parseFloat(heightB);
+          });
+          break;
+        case 'height_desc':
+          orderedDogsCopy.sort((a, b) => {
+            const heightA = a.height?.metric || (a.min_height + a.max_height) / 2 || 0;
+            const heightB = b.height?.metric || (b.min_height + b.max_height) / 2 || 0;
+            return parseFloat(heightB) - parseFloat(heightA);
+          });
+          break;
       case 'life_asc':
-        orderedDogsCopy.sort((a, b) => parseFloat(a.life_span) - parseFloat(b.life_span));
+        orderedDogsCopy.sort((a, b) => {
+          const lifeSpanA = parseFloat(a.life_span) || 0;
+          const lifeSpanB = parseFloat(b.life_span) || 0;
+          return lifeSpanA - lifeSpanB;
+        });
         break;
       case 'life_desc':
-        orderedDogsCopy.sort((a, b) => parseFloat(b.life_span) - parseFloat(a.life_span));
+        orderedDogsCopy.sort((a, b) => {
+          const lifeSpanA = parseFloat(a.life_span) || 0;
+          const lifeSpanB = parseFloat(b.life_span) || 0;
+          return lifeSpanB - lifeSpanA;
+        });
         break;
       default:
         break;
