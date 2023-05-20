@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500&display=swap');
+
+.container{
+    font-family: 'Wix Madefor Display', sans-serif;
+    background-color: #E3CCAE;
+}
+
+.container button{
+    font-family: 'Wix Madefor Display', sans-serif;
+    background-color: #B8621B;
+    border-radius: 1rem;
+    border-color: black;
+    margin: 5px;
+  }
+
+  .container input{
+    width: 350px;
+    margin: 10px;
+  }
+
+  .container select{
+    width: 200px;
+    margin: 10px;
+  }
+
+  .container h2{
+    color: #025464;
+    width: 500px;
+  }
+
+  .container div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.container label {
+    width: 250px; /* ajustar como sea necesario */
+}
+
+.container h3{
+    margin-right: 10px;
+}
+
+.container p{
+    color: red;
+}
+
+
+  
+
+

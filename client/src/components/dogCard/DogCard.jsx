@@ -1,18 +1,18 @@
 import React from 'react';
-import './DogCard.css'; 
+import './styleDogCard.css'; 
 import { Link } from 'react-router-dom';
 
 const DogCard = ({ dog }) => {
   let { name, image, temperament, weight, height, life_span, min_height, max_height, min_weight, max_weight } = dog;
 
   let tempArray;
-if (Array.isArray(temperament)) {
-  tempArray = temperament;
-} else if (typeof temperament === 'string') {
-  tempArray = temperament.split(', ');
-} else {
-  tempArray = ['No se proporcionaron temperamentos.'];
-}
+  if (Array.isArray(temperament)) {
+    tempArray = temperament;
+  } else if (typeof temperament === 'string') {
+    tempArray = temperament.split(', ');
+  } else {
+    tempArray = ['No se proporcionaron temperamentos.'];
+  }
 
 
   // Verificar si la altura y el peso son objetos, si no, tratarlos como cadenas
@@ -45,14 +45,14 @@ if (Array.isArray(temperament)) {
           <h2 className="card-title">{name}</h2>
         </Link>
         <p className="card-text">
-          <strong>Temperamentos:</strong> {tempArray.join(', ')}
+          <strong>Temperaments:</strong> {tempArray.join(', ')}
         </p>
         <p className="card-text">
-          <strong>Peso:</strong> {weightStr}
-          <br />
+          <strong>Weight:</strong> {weightStr}
+          {/* <br />
           <strong>Altura:</strong> {heightStr}
           <br />
-          <strong>Vida promedio:</strong> {life_span}
+          <strong>Vida promedio:</strong> {life_span} */}
         </p>
       </div>
     </div>

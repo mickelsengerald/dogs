@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500&display=swap');
+
+.paginator-container button{
+    font-family: 'Wix Madefor Display', sans-serif;
+    background-color: #B8621B;
+    border-radius: 1rem;
+    border-color: black;
+    margin: 2px;
+}

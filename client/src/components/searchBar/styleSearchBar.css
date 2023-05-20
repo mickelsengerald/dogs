@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500&display=swap');
+
+.searchbar-container button{
+    font-family: 'Wix Madefor Display', sans-serif;
+    background-color: #B8621B;
+    border-radius: 1rem;
+    border-color: black;
+    margin: 5px;
+}
+
+.searchbar-container input{
+    width: 200px;
+    height: 20px;
+    font-family: 'Wix Madefor Display', sans-serif;
+}

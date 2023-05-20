@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { getDogById, resetDogDetail } from '../../redux/actions';
+import './styleDetailPage.css'
 
 const DetailPage = () => {
   const { id } = useParams();
@@ -44,23 +45,31 @@ const DetailPage = () => {
 
 
   return (
-    <div>
-      <h1>Detalle del perro: {name}</h1>
-      <img src={imageUrl} alt={name} className="card-image" />
-      <p>
-        <strong>Peso:</strong> {displayWeight}
-      </p>
-      <p>
-        <strong>Altura:</strong> {displayHeight}
-      </p>
-      <p>
-        <strong>Vida promedio:</strong> {life_span}
-      </p>
-      <p className="card-text">
-        <strong>Temperamentos:</strong> {tempArray.join(', ')}
-      </p>
-      <Link to="/home">Volver</Link>
-    </div>
+    <div className="container">
+  <div className="image-container">
+    <img src={imageUrl} alt={name} className="card-image" />
+  </div>
+
+  <div className="content-container">
+    <h1>Detail of breed: {name}</h1>
+    <p>
+      <strong>Weight:</strong> {displayWeight}
+    </p>
+    <p>
+      <strong>Height:</strong> {displayHeight}
+    </p>
+    <p>
+      <strong>Life span:</strong> {life_span}
+    </p>
+    <p className="card-text">
+      <strong>Temperaments:</strong> {tempArray.join(", ")}
+    </p>
+    <Link to="/home" className="link">
+      Return
+    </Link>
+  </div>
+</div>
+
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { createDog, getTemperaments } from '../../redux/actions';
+import './styleFormPage.css'
 
 const FormPage = () => {
   const dispatch = useDispatch();
@@ -109,7 +110,7 @@ const FormPage = () => {
   
 
   return (
-    <div>
+    <div className='container'>
       <h2>Create New Breed of Dog</h2>
       <form onSubmit={handleSubmit}>
       <div>
@@ -123,32 +124,32 @@ const FormPage = () => {
         {errors.image && <p>{errors.image}</p>}
       </div>
       <div>
-        <label htmlFor="min_height">Min Height:</label>
+        <label htmlFor="min_height">Min Height (cm):</label>
         <input type="text" id="min_height" name="min_height" value={formData.min_height} onChange={handleInputChange} />
         {errors.min_height && <p>{errors.min_height}</p>}
       </div>
       <div>
-        <label htmlFor="max_height">Max Height:</label>
+        <label htmlFor="max_height">Max Height (cm):</label>
         <input type="text" id="max_height" name="max_height" value={formData.max_height} onChange={handleInputChange} />
         {errors.max_height && <p>{errors.max_height}</p>}
       </div>
       <div>
-        <label htmlFor="min_weight">Min Weight:</label>
+        <label htmlFor="min_weight">Min Weight (kg):</label>
         <input type="text" id="min_weight" name="min_weight" value={formData.min_weight} onChange={handleInputChange} />
         {errors.min_weight && <p>{errors.min_weight}</p>}
       </div>
       <div>
-        <label htmlFor="max_weight">Max Weight:</label>
+        <label htmlFor="max_weight">Max Weight (kg):</label>
         <input type="text" id="max_weight" name="max_weight" value={formData.max_weight} onChange={handleInputChange} />
         {errors.max_weight && <p>{errors.max_weight}</p>}
       </div>
       <div>
-        <label htmlFor="life_span">Life span:</label>
+        <label htmlFor="life_span">Life Span:</label>
         <input type="text" id="life_span" name="life_span" value={formData.life_span} onChange={handleInputChange} />
         {errors.life_span && <p>{errors.life_span}</p>}
       </div>
       <div>
-        <label>Temperamentos:</label>
+        <label>Select Temperaments:</label>
         <select multiple id="temperament" name="temperament" onChange={handleSelectChange}>
           {temperaments.map((temperament, index) => (
             <option key={index} value={temperament}>
@@ -159,10 +160,10 @@ const FormPage = () => {
         {errors.temperament && <p>{errors.temperament}</p>}
       </div>
 
-      <div>
-        <h3>Selected Temperaments:</h3>
+      <div className='temperaments-container'>
+        <h3>Your Temperaments:</h3>
         {selectedTemperaments.map((temperament, index) => (
-          <span key={index}>{temperament} </span>
+          <span key={index}>{temperament} &nbsp;</span>
         ))}
       </div>
       <button type="submit" disabled={Object.values(errors).some(error => error !== "") || Object.values(formData).some(value => value === "")}>Submit</button>

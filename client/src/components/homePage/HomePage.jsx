@@ -5,6 +5,7 @@ import { getAllDogs, searchDogsByName, getTemperaments } from '../../redux/actio
 import DogList from '../dogCard/DogList';
 import SearchBar from '../searchBar/SearchBar';
 import Paginator from '../paginator/Paginator';
+import './styleHomePage.css'
 
 const itemsPerPage = 8;
 
@@ -104,11 +105,13 @@ const HomePage = () => {
     setCurrentPage(pageNumber);
   };
 
-  const dogsToDisplay = isSearching ? searchedDogs : orderedDogs; // Usa orderedDogs en lugar de dogs
+ 
 
   
+  const dogsToDisplay = isSearching ? searchedDogs : orderedDogs; 
+
   const filteredDogs = () => {
-    return orderedDogs.filter((dog) => {
+    return dogsToDisplay.filter((dog) => {
       if (selectedTemperaments.length === 0) {
         return true;
       }
@@ -125,17 +128,32 @@ const HomePage = () => {
     });
   };
   
-  const filteredsDogs = filteredDogs();
-  // Determina los perros que se deben mostrar en la página actual
+  const filteredDogsToDisplay = filteredDogs();
   
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const selectedDogs = filteredsDogs.slice(startIndex, startIndex + itemsPerPage);
+  const selectedDogs = filteredDogsToDisplay.slice(startIndex, startIndex + itemsPerPage);
+
   
 
   return (
-    <div>
-      <SearchBar handleSearch={handleSearch} />
+    <div className='home-page'>
+      <div className="top-container">
+        <SearchBar handleSearch={handleSearch} />
+        <Paginator 
+        totalItems={dogsToDisplay.length} 
+        itemsPerPage={itemsPerPage} 
+        onPageChange={handlePageChange}
+      />
+      </div>
 
+      <div className='main-container'>
+
+      <div className="filters-container">
+        <h4>Add a new breed:</h4>
+      <Link to="/form">
+        <button>Create Dog</button>
+      </Link>
+      <h4>Add a filter:</h4>
       <select value={order} onChange={handleOrderChange}>
       <option value="">No filter</option>
         <option value="alph_asc">Alphabetical A-Z</option>
@@ -147,6 +165,9 @@ const HomePage = () => {
         <option value="life_asc">Life Span Ascending</option>
         <option value="life_desc">Life Span Descending</option>
       </select>
+      <h4>Select temperaments:</h4>
+      <div className="temperament-checkboxes">
+      
       {temperaments.map((temperament) => (
     <div key={temperament}>
         <input 
@@ -158,19 +179,16 @@ const HomePage = () => {
         />
         <label htmlFor={temperament}>{temperament}</label>
     </div>
-))}
-
+    ))}
+    </div>
+    </div>
+      <div className='dogs-container'>
       <DogList dogs={selectedDogs} />
+      </div>
+      </div>
       
-      <Paginator 
-        totalItems={dogsToDisplay.length} 
-        itemsPerPage={itemsPerPage} 
-        onPageChange={handlePageChange}
-      />
 
-      <Link to="/form">
-        <button>Create Dog</button>
-      </Link>
+      
     </div>
   );
 };

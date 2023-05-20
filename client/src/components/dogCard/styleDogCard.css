@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500&display=swap');
+
+.card {
+  width: 400px;
+  height: 350px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+  margin: 15px;
+}
+
+.card-content p {
+  padding: 2px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* This will give the text area a semi-transparent background */
+  color: white;
+  width: 100%;
+  padding: 10px;
+  font-family: 'Wix Madefor Display', sans-serif;
+}
+
+.card-title,
+.card-text {
+  margin: 0;
+}
+
+.all-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+
+
+
+
+
+  
