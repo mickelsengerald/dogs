@@ -1,18 +1,19 @@
 const { Dog, Temperament } = require('../db');
 const axios = require('axios');
+const { API_KEY } = process.env;
 
 async function getDogs(req, res, next) {
   try {
     // Hacer la llamada a la API para obtener todas las razas de perro
-    const apiResponse = await axios.get('https://api.thedogapi.com/v1/breeds');
+    const apiResponse = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
     const apiDogs = apiResponse.data;
 
     // Hacer la consulta a la base de datos para obtener todas las razas de perro guardadas
     const dbDogsData = await Dog.findAll({
       include: {
         model: Temperament,
-        attributes: ['name'], // Seleccionamos solo el nombre del temperamento
-        through: { attributes: [] }, // Excluimos los atributos de la tabla intermedia
+        attributes: ['name'], 
+        through: { attributes: [] }, 
       }
     });
 
@@ -42,7 +43,9 @@ async function getDogs(req, res, next) {
 
     // Devolver todas las razas de perro en la respuesta
     res.json(allDogs);
-  } catch (error) {
+  } 
+  
+  catch (error) {
     next(error);
   }
 }

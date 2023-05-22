@@ -35,7 +35,9 @@ async function getDogById(req, res, next) {
     }
 
     return res.json(dog);
-  } catch (error) {
+
+  } 
+  catch (error) {
     next(error);
   }
 }

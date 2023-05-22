@@ -1,21 +1,21 @@
 const axios = require('axios');
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+const {getMaxApiDogId} = require('../helpers/helpers')
+
 let maxApiDogId = 0;
 
 // Cuando inicias tu aplicación, obtén el 'id' más grande de los perros de la API
-axios.get('https://api.thedogapi.com/v1/breeds')
-  .then(response => {
-    maxApiDogId = Math.max(...response.data.map(dog => dog.id));
+getMaxApiDogId()
+  .then(id => {
+    maxApiDogId = id;
   })
   .catch(error => {
     console.error('Error getting max dog id from API:', error);
   });
 
 
+// Definir el modelo para la DB
 module.exports = (sequelize) => {
-  // defino el modelo
   const Dog = sequelize.define('dog', {
     id: {
       type: DataTypes.INTEGER,

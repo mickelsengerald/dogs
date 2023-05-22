@@ -10,6 +10,7 @@ import './styleHomePage.css'
 const itemsPerPage = 8;
 
 const HomePage = () => {
+  // Setear los estados de paginado, filtros, ordenamientos, etc
   const dispatch = useDispatch();
   const { dogs, searchedDogs } = useSelector((state) => state);
   const [isSearching, setIsSearching] = useState(false); 
@@ -18,21 +19,24 @@ const HomePage = () => {
   const [orderedDogs, setOrderedDogs] = useState([]);
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
 
-
+  // Useeffect para traer los temps y dogs
   useEffect(() => {
     dispatch(getAllDogs());
     dispatch(getTemperaments());
   }, [dispatch]);
 
+  // Funcion para bsuacr por nombre
   const handleSearch = (name) => {
     setIsSearching(true); 
     dispatch(searchDogsByName(name));
   };
 
+  // Maneja si se aplica algun ordenmaiento
   const handleOrderChange = (e) => {
     setOrder(e.target.value);
   };
 
+  // Maneja si se aplica un temp
   const handleTemperamentChange = (temperament) => {
     setSelectedTemperaments(prevTemperaments => 
         prevTemperaments.includes(temperament) 
@@ -43,8 +47,8 @@ const HomePage = () => {
 
   const { temperaments } = useSelector((state) => state);
 
+  // Como van cambiando los dogs a medida que voy aplicando filtro
   useEffect(() => {
-    // Copia el código de ordenación de DogList aquí
     let orderedDogsCopy = [...dogs];
     switch (order) {
       case 'alph_asc':
@@ -101,15 +105,17 @@ const HomePage = () => {
     setOrderedDogs(orderedDogsCopy);
   }, [order, dogs]);
 
+  // Funcion para el paginado
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
  
 
-  
+  // Define que dogs mostarr en cada pagina
   const dogsToDisplay = isSearching ? searchedDogs : orderedDogs; 
 
+  // Filtrado de los perros ya previamente ordenados pero por temps
   const filteredDogs = () => {
     return dogsToDisplay.filter((dog) => {
       if (selectedTemperaments.length === 0) {
@@ -130,6 +136,7 @@ const HomePage = () => {
   
   const filteredDogsToDisplay = filteredDogs();
   
+  // Setear los parametros para paginar
   const startIndex = (currentPage - 1) * itemsPerPage;
   const selectedDogs = filteredDogsToDisplay.slice(startIndex, startIndex + itemsPerPage);
 
@@ -148,48 +155,48 @@ const HomePage = () => {
 
       <div className='main-container'>
 
-      <div className="filters-container">
-        <h4>Add a new breed:</h4>
-      <Link to="/form">
-        <button>Create Dog</button>
-      </Link>
-      <h4>Add a filter:</h4>
-      <select value={order} onChange={handleOrderChange}>
-      <option value="">No filter</option>
-        <option value="alph_asc">Alphabetical A-Z</option>
-        <option value="alph_desc">Alphabetical Z-A</option>
-        <option value="weight_asc">Weight Ascending</option>
-        <option value="weight_desc">Weight Descending</option>
-        <option value="height_asc">Height Ascending</option>
-        <option value="height_desc">Height Descending</option>
-        <option value="life_asc">Life Span Ascending</option>
-        <option value="life_desc">Life Span Descending</option>
-      </select>
-      <h4>Select temperaments:</h4>
-      <div className="temperament-checkboxes">
+        <div className="filters-container">
+          <h4>Add a new breed:</h4>
+          <Link to="/form">
+            <button>Create Dog</button>
+          </Link>
+          <h4>Add a filter:</h4>
+          <select value={order} onChange={handleOrderChange}>
+            <option value="">No filter</option>
+            <option value="alph_asc">Alphabetical A-Z</option>
+            <option value="alph_desc">Alphabetical Z-A</option>
+            <option value="weight_asc">Weight Ascending</option>
+            <option value="weight_desc">Weight Descending</option>
+            <option value="height_asc">Height Ascending</option>
+            <option value="height_desc">Height Descending</option>
+            <option value="life_asc">Life Span Ascending</option>
+            <option value="life_desc">Life Span Descending</option>
+          </select>
+          <h4>Select temperaments:</h4>
+        <div className="temperament-checkboxes">
       
-      {temperaments.map((temperament) => (
-    <div key={temperament}>
-        <input 
-            type="checkbox" 
-            id={temperament} 
-            value={temperament} 
-            checked={selectedTemperaments.includes(temperament)} 
-            onChange={() => handleTemperamentChange(temperament)}
-        />
-        <label htmlFor={temperament}>{temperament}</label>
-    </div>
-    ))}
-    </div>
-    </div>
+        {temperaments.map((temperament) => (
+          <div key={temperament}>
+            <input 
+                type="checkbox" 
+                id={temperament} 
+                value={temperament} 
+                checked={selectedTemperaments.includes(temperament)} 
+                onChange={() => handleTemperamentChange(temperament)}
+            />
+            <label htmlFor={temperament}>{temperament}</label>
+          </div>
+        ))}
+        </div>
+      </div>
       <div className='dogs-container'>
-      <DogList dogs={selectedDogs} />
+        <DogList dogs={selectedDogs} />
       </div>
       </div>
       
 
       
-    </div>
+     </div>
   );
 };
 

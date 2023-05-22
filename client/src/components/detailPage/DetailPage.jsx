@@ -5,20 +5,20 @@ import { getDogById, resetDogDetail } from '../../redux/actions';
 import './styleDetailPage.css'
 
 const DetailPage = () => {
+  // Traer el id
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  // Cada vez que cambia el id se despacha la accion
   useEffect(() => {
-    console.log("Effect: Fetching dog", id);
     dispatch(getDogById(id));
     return () => {
-      console.log("Cleaning up: Resetting dog detail");
       dispatch(resetDogDetail());
     };
   }, [id, dispatch]);
 
+  // Traer el dog
   const dog = useSelector((state) => state.dogDetail);
-  console.log('este es el dog de db', dog);
 
   if (!dog) {
     return <div>Loading...</div>;
@@ -29,7 +29,7 @@ const DetailPage = () => {
   const displayWeight = `${weight?.metric || `${min_weight} - ${max_weight}`} kg`;
   const displayHeight = `${height?.metric || `${min_height} - ${max_height}`} cm`;
 
-
+  // Traer los temnperamentos correspondientes, la diferencia de nombre es por los de la API y DB
   let tempArray;
   if (Array.isArray(temperament)) {
     tempArray = temperament;
@@ -40,35 +40,34 @@ const DetailPage = () => {
   } else {
     tempArray = ['No se proporcionaron temperamentos.'];
   }
-  console.log('este es el temp array ', tempArray);
   const imageUrl = image?.url || image || '';
 
 
   return (
     <div className="container">
-  <div className="image-container">
-    <img src={imageUrl} alt={name} className="card-image" />
-  </div>
+      <div className="image-container">
+        <img src={imageUrl} alt={name} className="card-image" />
+      </div>
 
-  <div className="content-container">
-    <h1>Detail of breed: {name}</h1>
-    <p>
-      <strong>Weight:</strong> {displayWeight}
-    </p>
-    <p>
-      <strong>Height:</strong> {displayHeight}
-    </p>
-    <p>
-      <strong>Life span:</strong> {life_span}
-    </p>
-    <p className="card-text">
-      <strong>Temperaments:</strong> {tempArray.join(", ")}
-    </p>
-    <Link to="/home" className="link">
-      Return
-    </Link>
-  </div>
-</div>
+      <div className="content-container">
+        <h1>Detail of breed: {name}</h1>
+        <p className="p-content-container">
+          <strong>Weight:</strong> {displayWeight}
+        </p>
+        <p className="p-content-container">
+          <strong>Height:</strong> {displayHeight}
+        </p>
+        <p className="p-content-container">
+          <strong>Life span:</strong> {life_span}
+        </p>
+        <p className="p-content-container">
+          <strong>Temperaments:</strong> {tempArray.join(", ")}
+        </p>
+        <Link to="/home" className="link">
+          Return
+        </Link>
+      </div>
+    </div>
 
   );
 };

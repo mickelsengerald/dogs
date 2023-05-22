@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 
+// Definir el modleo para la DB
 module.exports = (sequelize) => {
   const Temperament = sequelize.define('temperament', {
     id: {

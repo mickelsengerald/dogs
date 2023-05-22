@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const DogCard = ({ dog }) => {
   let { name, image, temperament, weight, height, life_span, min_height, max_height, min_weight, max_weight } = dog;
 
+  // Obtener los temperamentos
   let tempArray;
   if (Array.isArray(temperament)) {
     tempArray = temperament;

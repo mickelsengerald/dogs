@@ -5,9 +5,11 @@ import { createDog, getTemperaments } from '../../redux/actions';
 import './styleFormPage.css'
 
 const FormPage = () => {
+  // Traer los temps de la DB
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
 
+  // Setear todo en vacío
   const [formData, setFormData] = useState({
     name: '',
     image: '',
@@ -24,6 +26,7 @@ const FormPage = () => {
   // Estado para los mensajes de error
   const [errors, setErrors] = useState({});
 
+  // Dispatch d elos temps
   useEffect(() => {
     dispatch(getTemperaments());
   }, [dispatch]);
@@ -47,8 +50,8 @@ const FormPage = () => {
             setErrors({ ...errors, [e.target.name]: "" });
           }
           break;
-        
-        
+
+      // Estos solo pediran numeros    
       case 'min_height':
       case 'max_height':
       case 'min_weight':
@@ -59,6 +62,8 @@ const FormPage = () => {
           setErrors({ ...errors, [e.target.name]: "" });
         }
         break;
+      
+        // Que contenga la palabra years a final
       case 'life_span':
         if(!/^\d+\syears$/.test(e.target.value)) {
           setErrors({ ...errors, life_span: "Life span must be a number followed by 'years'" });
@@ -66,17 +71,13 @@ const FormPage = () => {
           setErrors({ ...errors, life_span: "" });
         }
         break;
+
       default:
         break;
     }
   };
 
-  useEffect(() => {
-    dispatch(getTemperaments());
-  }, [dispatch]);
-
-  
-
+  // Validar que minimo se elija un temp
   const handleSelectChange = (e) => {
     const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
     setSelectedTemperaments(selectedOptions);
@@ -88,6 +89,7 @@ const FormPage = () => {
   };
 
 
+  // Crear el perro
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalData = { ...formData, temperament: selectedTemperaments };

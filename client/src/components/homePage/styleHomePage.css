@@ -1,89 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500&display=swap');
 
 .home-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #E3CCAE;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #E3CCAE;
+}
   
-  .top-container {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.top-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
   
   
-  .main-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
   
-  .filters-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 20px;
-    width: 20%; 
-    border-radius: 1rem;
-    border: 1px solid black;
-  }
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  width: 20%; 
+  border-radius: 1rem;
+  border: 1px solid black;
+}
   
-  .filters-container h4{
-    font-family: 'Wix Madefor Display', sans-serif;
-    font-size: medium;
-  }
+.filters-container h4{
+  font-family: 'Wix Madefor Display', sans-serif;
+  font-size: medium;
+}
 
-  .filters-container button{
-    font-family: 'Wix Madefor Display', sans-serif;
-    background-color: #B8621B;
-    border-radius: 1rem;
-    border-color: black;
-  }
+.filters-container button{
+  font-family: 'Wix Madefor Display', sans-serif;
+  background-color: #B8621B;
+  border-radius: 1rem;
+  border-color: black;
+}
 
-  .filters-container select{
-    font-family: 'Wix Madefor Display', sans-serif;
-    background-color: #B8621B;
-    border-radius: 1rem;
-    border-color: black;
-  }
+.filters-container select{
+  font-family: 'Wix Madefor Display', sans-serif;
+  background-color: #B8621B;
+  border-radius: 1rem;
+  border-color: black;
+}
 
-  .temperament-checkboxes {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-family: 'Wix Madefor Display', sans-serif;
-    background-color: #B8621B;
-    border-radius: 1rem;
-    border-color: black;
+.temperament-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: 'Wix Madefor Display', sans-serif;
+  background-color: #B8621B;
+  border-radius: 1rem;
+  border-color: black;
     
-  }
+}
   
-  .temperament-checkboxes > div {
-    flex: 0 0 calc(33.33% - 1rem);
-    display: flex;
-    align-items: center;
-    padding: 5px;
-  }
+.temperament-checkboxes > div {
+  flex: 0 0 calc(33.33% - 1rem);
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
   
-  .temperament-checkboxes label {
-    margin-left: 0.1rem;
-  }
+.temperament-checkboxes label {
+  margin-left: 0.1rem;
+}
   
-  .dogs-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-    flex-grow: 1;
+.dogs-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  flex-grow: 1;
     
-  }
+}
   
   
   

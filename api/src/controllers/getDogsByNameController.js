@@ -4,6 +4,7 @@ const { Op } = require('sequelize');
 const { API_KEY } = process.env;
 
 async function getDogsByName(req, res) {
+  // Verificar que llegó el name
   const { name } = req.params;
 
   if (!name) {
@@ -26,7 +27,6 @@ async function getDogsByName(req, res) {
         'x-api-key': API_KEY
       }
     });
-    console.log(`Respuesta de la API: ${JSON.stringify(response.data, null, 2)}`);
 
     const externalDogs = response.data.map(async (dog) => {
       // Obtener la imagen correspondiente utilizando el id del perro
@@ -38,6 +38,7 @@ async function getDogsByName(req, res) {
       
       const image = imageResponse.data[0]?.url;
       
+      // Retornar el dog
       return {
         id: dog.id,
         name: dog.name,
@@ -46,23 +47,24 @@ async function getDogsByName(req, res) {
         weight: dog.weight,
         height: dog.height,
         life_span: dog.life_span
-        // Agregar el resto de las propiedades que necesites
       };
     });
 
     // Esperar a que se completen todas las promesas
     const externalDogsData = await Promise.all(externalDogs);
     
+    // Juntar los dogs que cumplan de la API y DB
     const allDogs = localDogs.concat(externalDogsData);
-    console.log(`locales: ${JSON.stringify(localDogs, null, 2)}`)
-    console.log(`externos: ${JSON.stringify(externalDogsData, null, 2)}`)
+    
 
     if (allDogs.length === 0) {
       return res.status(404).send('No dogs found with that name');
     }
 
     res.status(200).send(allDogs);
-  } catch (error) {
+  } 
+  
+  catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving dogs by name');
   }

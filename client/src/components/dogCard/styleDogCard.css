@@ -36,8 +36,7 @@
   font-family: 'Wix Madefor Display', sans-serif;
 }
 
-.card-title,
-.card-text {
+.card-title, .card-text {
   margin: 0;
 }
 
