@@ -17,7 +17,13 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <h1>Algo salió mal.</h1>;
+      return (
+        <div>
+          <h1>Error, Dog Not Found </h1>
+          <img src="/imagenes/sorryDog.jpg" alt="imagen de fondo" />
+          <h2>Please refresh the page</h2>
+        </div>
+      );
     }
 
     return this.props.children; 

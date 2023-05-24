@@ -7,6 +7,7 @@ export const SEARCH_DOGS_BY_NAME = 'SEARCH_DOGS_BY_NAME';
 export const CREATE_DOG = 'CREATE_DOG';
 export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS';
 export const RESET_DOG_DETAIL= 'RESET_DOG_DETAIL'
+export const SEARCH_DOGS_ERROR = 'SEARCH_DOGS_ERROR'
 
 
 export const getAllDogs = () => async (dispatch) => {
@@ -43,7 +44,13 @@ export const searchDogsByName = (name) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.error(error);
+    const errorMessage = error.response && error.response.status === 404
+      ? 'Dog not found'
+      : error.message;
+    dispatch({
+      type: SEARCH_DOGS_ERROR,
+      payload: errorMessage,
+    });
   }
 };
 

@@ -5,7 +5,8 @@ import {
   SEARCH_DOGS_BY_NAME,
   CREATE_DOG,
   GET_TEMPERAMENTS,
-  RESET_DOG_DETAIL
+  RESET_DOG_DETAIL,
+  SEARCH_DOGS_ERROR
 } from './actions';
 
 // Estado inicial
@@ -14,6 +15,7 @@ const initialState = {
   dogDetail: {},
   searchedDogs: [],
   temperaments: [],
+  error: null
 };
 
 // Funciones reductoras
@@ -44,7 +46,16 @@ const dogDetailReducer = (state = initialState.dogDetail, action) => {
 const searchedDogsReducer = (state = initialState.searchedDogs, action) => {
   switch (action.type) {
     case SEARCH_DOGS_BY_NAME:
-      return action.payload;
+      return {
+        ...state,
+        dogs: action.payload,
+        error: null,
+      };
+    case SEARCH_DOGS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }

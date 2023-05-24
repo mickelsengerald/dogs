@@ -18,6 +18,7 @@ const HomePage = () => {
   const [order, setOrder] = useState('');
   const [orderedDogs, setOrderedDogs] = useState([]);
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
+  const error = useSelector(state => state.error);
 
   // Useeffect para traer los temps y dogs
   useEffect(() => {
@@ -192,6 +193,8 @@ const HomePage = () => {
       <div className='dogs-container'>
         <DogList dogs={selectedDogs} />
       </div>
+        {error && <p>Error: {error}</p>}
+
       </div>
       
 

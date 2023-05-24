@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Dog } = require('../db.js');
+const { Dog, Temperament } = require('../db.js');
 const { Op } = require('sequelize');
 const { API_KEY } = process.env;
 
@@ -19,43 +19,32 @@ async function getDogsByName(req, res) {
           [Op.iLike]: `%${name}%`,
         },
       },
-    });
-
-    // Buscar en la API externa
-    const response = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`, {
-      headers: {
-        'x-api-key': API_KEY
+      include: {
+        model: Temperament,
+        attributes: ['name'], 
+        through: { attributes: [] }, 
       }
     });
 
-    const externalDogs = response.data.map(async (dog) => {
-      // Obtener la imagen correspondiente utilizando el id del perro
-      const imageResponse = await axios.get(`https://api.thedogapi.com/v1/images/search?breed_id=${dog.id}`, {
-        headers: {
-          'x-api-key': API_KEY
-        }
-      });
-      
-      const image = imageResponse.data[0]?.url;
-      
-      // Retornar el dog
-      return {
+    // Obtener todas las razas de la API externa
+    const response = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
+
+    // Filtrar las razas que coinciden con la búsqueda
+    const externalDogs = response.data
+      .filter(dog => dog.name.toLowerCase().includes(name.toLowerCase()))
+      .map(dog => ({
         id: dog.id,
         name: dog.name,
         temperament: dog.temperament ? dog.temperament.split(", ") : [],
-        image: image ? { url: image } : { url: null },
+        image: dog.image ? { url: dog.image.url } : { url: null },
         weight: dog.weight,
         height: dog.height,
         life_span: dog.life_span
-      };
-    });
+      }));
 
-    // Esperar a que se completen todas las promesas
-    const externalDogsData = await Promise.all(externalDogs);
-    
     // Juntar los dogs que cumplan de la API y DB
-    const allDogs = localDogs.concat(externalDogsData);
-    
+    const allDogs = localDogs.concat(externalDogs);
+    console.log(allDogs);
 
     if (allDogs.length === 0) {
       return res.status(404).send('No dogs found with that name');
@@ -63,7 +52,6 @@ async function getDogsByName(req, res) {
 
     res.status(200).send(allDogs);
   } 
-  
   catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving dogs by name');
@@ -73,6 +61,7 @@ async function getDogsByName(req, res) {
 module.exports = {
   getDogsByName,
 };
+
 
 
 
