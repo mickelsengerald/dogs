@@ -15,7 +15,6 @@ const initialState = {
   dogDetail: {},
   searchedDogs: [],
   temperaments: [],
-  error: null
 };
 
 // Funciones reductoras
@@ -46,20 +45,12 @@ const dogDetailReducer = (state = initialState.dogDetail, action) => {
 const searchedDogsReducer = (state = initialState.searchedDogs, action) => {
   switch (action.type) {
     case SEARCH_DOGS_BY_NAME:
-      return {
-        ...state,
-        dogs: action.payload,
-        error: null,
-      };
-    case SEARCH_DOGS_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
+      return action.payload;
     default:
       return state;
   }
 };
+
 
 const temperamentsReducer = (state = initialState.temperaments, action) => {
   switch (action.type) {

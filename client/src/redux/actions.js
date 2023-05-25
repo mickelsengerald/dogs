@@ -26,7 +26,6 @@ export const getDogById = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`http://localhost:3001/dogs/${id}`);
-      console.log("Fetched dog", data);
       return dispatch({ type: GET_DOG_BY_ID, payload: data });
     } catch (error) {
       console.error(error);
@@ -44,13 +43,7 @@ export const searchDogsByName = (name) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    const errorMessage = error.response && error.response.status === 404
-      ? 'Dog not found'
-      : error.message;
-    dispatch({
-      type: SEARCH_DOGS_ERROR,
-      payload: errorMessage,
-    });
+    console.error(error);
   }
 };
 
@@ -58,7 +51,6 @@ export const createDog = (newDog) => async (dispatch) => {
   try {
     console.log(`new dog ${JSON.stringify(newDog, null, 2)}`)
     const res = await axios.post('http://localhost:3001/dogs', newDog);
-    console.log(`respuesta de data ${res.data}`)
     dispatch({
       type: CREATE_DOG,
       payload: res.data,
@@ -71,7 +63,6 @@ export const createDog = (newDog) => async (dispatch) => {
 export const getTemperaments = () => async (dispatch) => {
   try {
     const res = await axios.get('http://localhost:3001/temperaments');
-    console.log('Temperaments:', res.data);
     dispatch({
       type: GET_TEMPERAMENTS,
       payload: res.data,
@@ -82,7 +73,6 @@ export const getTemperaments = () => async (dispatch) => {
 };
 
 export const resetDogDetail = () => {
-  console.log("Resetting dog detail");
   return { type: RESET_DOG_DETAIL };
 };
 

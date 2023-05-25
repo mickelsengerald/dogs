@@ -12,7 +12,9 @@ const itemsPerPage = 8;
 const HomePage = () => {
   // Setear los estados de paginado, filtros, ordenamientos, etc
   const dispatch = useDispatch();
-  const { dogs, searchedDogs } = useSelector((state) => state);
+  const { dogs } = useSelector((state) => state);
+  const searchedDogs = useSelector((state) => state.searchedDogs);
+
   const [isSearching, setIsSearching] = useState(false); 
   const [currentPage, setCurrentPage] = useState(1);
   const [order, setOrder] = useState('');
@@ -203,10 +205,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
-
-
-
-
-
-
+export default HomePage; 

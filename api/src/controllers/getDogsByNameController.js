@@ -44,7 +44,7 @@ async function getDogsByName(req, res) {
 
     // Juntar los dogs que cumplan de la API y DB
     const allDogs = localDogs.concat(externalDogs);
-    console.log(allDogs);
+    
 
     if (allDogs.length === 0) {
       return res.status(404).send('No dogs found with that name');
